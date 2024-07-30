@@ -1,5 +1,5 @@
 // Placeholder for AWS SDK and Cognito setup
-// You'll need to add the actual AWS configuration here
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const signInSection = document.getElementById('sign-in');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelBtn = document.getElementById('cancel-btn');
     const signOutBtn = document.getElementById('sign-out');
 
-    // Simulated authentication state (replace with actual Cognito authentication)
+    // Simulated authentication state, will replace with actual Cognito authentication later
     let isAuthenticated = false;
 
     function updateUI() {
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signInSection.classList.add('hidden');
             dashboardSection.classList.remove('hidden');
             document.getElementById('username').textContent = 'Admin'; // Replace with actual username
+            fetchBooks();
         } else {
             signInSection.classList.remove('hidden');
             dashboardSection.classList.add('hidden');
@@ -28,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     signInForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Implement actual Cognito authentication here
+        // Will implement actual Cognito authentication here
         isAuthenticated = true;
         updateUI();
     });
 
     signOutBtn.addEventListener('click', () => {
-        // Implement actual Cognito sign out here
+        // Will implement actual Cognito sign out here
         isAuthenticated = false;
         updateUI();
     });
@@ -50,13 +51,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Implement book addition/editing logic here
+        // Will implement book addition/editing logic here
         addEditBookSection.classList.add('hidden');
     });
 
-    // Function to fetch and display books (to be implemented)
+    // Function to fetch and display books from DynamoDB, for now fetch from json for demo
     function fetchBooks() {
-        // Fetch books from DynamoDB and update the books-list
+        fetch('books.json')
+            .then(response => response.json())
+            .then(books => {
+                const booksList = document.getElementById('books-list');
+                booksList.innerHTML = '';
+                books.forEach(book => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${book.Title}</td>
+                        <td>${book.Authors}</td>
+                        <td>${book.Publisher}</td>
+                        <td>${book.Year}</td>
+                        <td>
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-delete">Delete</button>
+                        </td>
+                    `;
+                    booksList.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching books:', error));
     }
 
     // Initial UI update
