@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books Collection</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Books Collection</h1>
+        <div class="header-content">
+            <h1>Books Collection</h1>
+            <div class="header-decoration">
+                <span class="book-icon">📚</span>
+                <span class="line"></span>
+            </div>
+            <p class="tagline">Discover, Collect, and Cherish Your Literary Treasures</p>
+        </div>
         <div id="user-info">
             <span id="username"></span>
             <button id="sign-out">Sign Out</button>
@@ -17,45 +26,71 @@
 
     <main>
         <section id="sign-in" class="hidden">
-            <h2>Sign In</h2>
-            <form id="sign-in-form">
-                <input type="text" id="username-input" placeholder="Username" required>
-                <input type="password" id="password-input" placeholder="Password" required>
-                <button type="submit">Sign In</button>
-            </form>
+            <div class="form-container">
+                <h2>Sign In</h2>
+                <form id="sign-in-form">
+                    <div class="input-group">
+                        <label for="username-input">Username</label>
+                        <input type="text" id="username-input" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password-input">Password</label>
+                        <input type="password" id="password-input" required>
+                    </div>
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
         </section>
 
         <section id="dashboard" class="hidden">
-            <h2>Books Dashboard</h2>
-            <button id="add-book-btn">Add New Book</button>
-            <table id="books-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Publisher</th>
-                        <th>ISBN</th>
-                        <th>Year</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="books-list">
-                    <!-- Books will be dynamically added here -->
-                </tbody>
-            </table>
+            <div class="dashboard-container">
+                <h2>Books Dashboard</h2>
+                <button id="add-book-btn" class="btn btn-primary">Add New Book</button>
+                <div class="table-responsive">
+                    <table id="books-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Publisher</th>
+                                <th>Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="books-list">
+                            <!-- Books will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
 
         <section id="add-edit-book" class="hidden">
-            <h2 id="form-title">Add/Edit Book</h2>
-            <form id="book-form">
-                <input type="text" id="book-title" placeholder="Title" required>
-                <input type="text" id="book-author" placeholder="Author" required>
-                <input type="text" id="book-publisher" placeholder="Publisher" required>
-                <input type="text" id="book-isbn" placeholder="ISBN" required>
-                <input type="number" id="book-year" placeholder="Year" required>
-                <button type="submit">Save</button>
-                <button type="button" id="cancel-btn">Cancel</button>
-            </form>
+            <div class="form-container">
+                <h2 id="form-title">Add/Edit Book</h2>
+                <form id="book-form">
+                    <div class="input-group">
+                        <label for="book-title">Title</label>
+                        <input type="text" id="book-title" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="book-author">Author</label>
+                        <input type="text" id="book-author" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="book-publisher">Publisher</label>
+                        <input type="text" id="book-publisher" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="book-year">Year</label>
+                        <input type="number" id="book-year" required>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
 
