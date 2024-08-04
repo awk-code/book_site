@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addBookBtn = document.getElementById('add-book-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const signOutBtn = document.getElementById('sign-out');
+    const modal = document.getElementById('add-edit-book-modal');
+    const closeBtn = document.getElementsByClassName('close')[0];
 
     // Simulated authentication state, will replace with actual Cognito authentication later
     let isAuthenticated = false;
@@ -41,12 +43,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addBookBtn.addEventListener('click', () => {
-        addEditBookSection.classList.remove('hidden');
+        modal.style.display = 'block';
         bookForm.reset();
     });
 
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
     cancelBtn.addEventListener('click', () => {
-        addEditBookSection.classList.add('hidden');
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
     });
 
     bookForm.addEventListener('submit', (e) => {
