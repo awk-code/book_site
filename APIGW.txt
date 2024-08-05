@@ -1,0 +1,12 @@
+API Gateway Resource
+
+/
+  /books
+  GET
+  OPTIONS
+  POST
+    /{title}
+    OPTIONS
+    PUT
+    DELETE
+

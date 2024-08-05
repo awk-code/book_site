@@ -58,8 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addBookBtn.addEventListener('click', () => {
-        modal.style.display = 'block';
+        const formTitle = document.getElementById('form-title');
+        formTitle.textContent = 'Add New Book';
+        bookForm.dataset.mode = 'add';
         bookForm.reset();
+        modal.style.display = 'block';
     });
 
     closeBtn.addEventListener('click', () => {
@@ -78,11 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Will implement book addition/editing logic here
-        addEditBookSection.classList.add('hidden');
+        const bookData = {
+            Title: document.getElementById('book-title').value,
+            Authors: document.getElementById('book-author').value,
+            Publisher: document.getElementById('book-publisher').value,
+            Year: parseInt(document.getElementById('book-year').value)
+        };
+
+        if (bookForm.dataset.mode === 'edit') {
+            editBook(bookData);
+        } else {
+            addBook(bookData);
+        }
     });
 
-    // Function to fetch and display books from DynamoDB, for now fetch from json for demo
     function fetchBooks() {
         fetch(apiUrl)
             .then(response => {
@@ -92,13 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                console.log('API response:', data); // Log the parsed response
+                console.log('API response:', data);
                 let books;
                 if (data.body) {
-                    // If the response includes a body property, parse it
                     books = JSON.parse(data.body);
                 } else if (Array.isArray(data)) {
-                    // If the response is already an array, use it directly
                     books = data;
                 } else {
                     console.error('Unexpected data format:', data);
@@ -128,6 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn btn-delete">Delete</button>
                         </td>
                     `;
+                    const editBtn = row.querySelector('.btn-edit');
+                    editBtn.addEventListener('click', () => openEditModal(book));
+                    const deleteBtn = row.querySelector('.btn-delete');
+                    deleteBtn.addEventListener('click', () => deleteBook(book.Title));
                     booksList.appendChild(row);
                 });
             })
@@ -138,6 +152,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     booksList.innerHTML = '<tr><td colspan="5">Error loading books. Please try again later.</td></tr>';
                 }
             });
+    }
+
+    function addBook(bookData) {
+        //
+    }
+    
+    function editBook(bookData) {
+        //
+    }
+
+    function openEditModal(book) {
+        const formTitle = document.getElementById('form-title');
+        formTitle.textContent = 'Edit Book';
+        bookForm.dataset.mode = 'edit';
+
+        document.getElementById('book-title').value = book.Title || '';
+        document.getElementById('book-author').value = book.Authors || '';
+        document.getElementById('book-publisher').value = book.Publisher || '';
+        document.getElementById('book-year').value = book.Year || '';
+
+        modal.style.display = 'block';
+    }
+
+    function deleteBook(title) {
+        //
     }
 
     // Initial UI update
