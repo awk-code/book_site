@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             Title: document.getElementById('book-title').value,
             Authors: document.getElementById('book-author').value,
             Publisher: document.getElementById('book-publisher').value,
-            Year: parseInt(document.getElementById('book-year').value)
+            Year: parseInt(document.getElementById('book-year').value),
+            ImageUrl: document.getElementById('book-image-url').value
         };
 
         if (bookForm.dataset.mode === 'edit') {
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 books.forEach(book => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
+                        <td><img src="${book.ImageUrl || 'placeholder-image-url.jpg'}" alt="${book.Title}" class="book-thumbnail"></td>
                         <td>${book.Title || 'N/A'}</td>
                         <td>${book.Authors || 'N/A'}</td>
                         <td>${book.Publisher || 'N/A'}</td>
@@ -171,6 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('book-author').value = book.Authors || '';
         document.getElementById('book-publisher').value = book.Publisher || '';
         document.getElementById('book-year').value = book.Year || '';
+        document.getElementById('book-image-url').value = book.ImageUrl || '';
 
         modal.style.display = 'block';
     }
