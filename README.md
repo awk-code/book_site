@@ -5,3 +5,5 @@ Connections to Cloud closed as I no longer have access to AWS Educational accoun
 Sample data being pulled from JSON file.
 
 Deployed at https://awk-code.github.io/book_site/
+
+Feel free to login with any credentials, authentication off!
